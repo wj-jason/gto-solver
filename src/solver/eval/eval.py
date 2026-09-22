@@ -27,7 +27,7 @@ def _suit_of(card: str) -> str:
 
 def _straight_high(sorted_ranks_desc: list[int]) -> int | None:
     """Given distinct ranks sorted descending, return the high card of a
-    straight if one exists among them, else None. Handles the wheel (A-5)."""
+    straight if one exists among them, else None. Handles the wheel."""
     ranks = sorted(set(sorted_ranks_desc), reverse=True)
     if 14 in ranks:
         ranks = ranks + [1]  # ace can play low for the wheel
@@ -39,7 +39,7 @@ def _straight_high(sorted_ranks_desc: list[int]) -> int | None:
 
 
 def score_5card(cards: list[str]) -> tuple:
-    """Score a single 5-card hand. Bigger tuple = better hand."""
+    """returns (hand type, *tiebreakers)"""
     assert len(cards) == 5
     ranks = [_rank_of(c) for c in cards]
     suits = [_suit_of(c) for c in cards]
@@ -85,7 +85,6 @@ def score_5card(cards: list[str]) -> tuple:
 
 
 def best_hand_score(cards: list[str]) -> tuple:
-    """Best 5-card score achievable from 5, 6, or 7 cards."""
     assert 5 <= len(cards) <= 7
     if len(cards) == 5:
         return score_5card(cards)
@@ -93,7 +92,6 @@ def best_hand_score(cards: list[str]) -> tuple:
 
 
 def compare(cards_a: list[str], cards_b: list[str]) -> int:
-    """Return 1 if a wins, -1 if b wins, 0 if tied."""
     score_a = best_hand_score(cards_a)
     score_b = best_hand_score(cards_b)
     if score_a > score_b:
