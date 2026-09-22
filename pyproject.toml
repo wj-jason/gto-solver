@@ -1,6 +1,6 @@
 [build-system]
-requires = ["setuptools>=68.0"]
-build-backend = "setuptools.build_meta"
+requires = ["scikit-build-core>=0.9", "pybind11>=2.11"]
+build-backend = "scikit_build_core.build"
 
 [project]
 name = "poker-solver"
@@ -13,13 +13,49 @@ authors = [
     { name = "Jason Wang" }
 ]
 
+
 dependencies = [
     "numpy>=1.26",
-    "tqdm>=4.66",
-    "matplotlib>=3.8",
-    "pydantic>=2.5",
+    "tqdm>=4.66",          # progress bars for training loops
+    "matplotlib>=3.8",     # range grid / convergence plotting
+    "pydantic>=2.5",       # config validation for game/tree parameters
 ]
 
-[tool.black]
+[project.optional-dependencies]
+gpu = [
+    "numba>=0.59",
+    "cupy-cuda12x>=13.0",
+]
+
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=4.1",
+    "ruff>=0.4",
+    "mypy>=1.9",
+    "ipykernel>=6.29",
+]
+
+[project.scripts]
+train-preflop = "solver.main:main"
+
+[tool.scikit-build]
+cmake.source-dir = "cpp"
+wheel.packages = ["src/solver"]
+build-dir = "cpp/build"
+editable.rebuild = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+
+[tool.ruff]
 line-length = 100
-target-version = ["py310"]
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+[tool.mypy]
+python_version = "3.10"
+ignore_missing_imports = true
+disallow_untyped_defs = false
