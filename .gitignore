@@ -27,6 +27,7 @@ Makefile
 
 *.pkl
 *.png
+!benchmarks/imgs/*.png
 *.csv
 
 .ipynb_checkpoints/
