@@ -1,0 +1,29 @@
+name: poker
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.10
+  - numpy>=1.26
+  - tqdm>=4.66
+  - matplotlib>=3.8
+  - pydantic>=2.5
+
+  # dev / testing
+  - pytest>=8.0
+  - pytest-cov>=4.1
+  - ruff>=0.4
+  - mypy>=1.9
+  - ipykernel>=6.29
+
+  # C++ / CUDA build toolchain
+  - cmake>=3.28
+  - ninja
+  - pybind11>=2.11
+  - cxx-compiler       
+  - cuda-toolkit=12.*  
+  - numba>=0.59
+  - cupy>=13.0

@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "poker-solver"
+version = "0.1.0"
+description = "Open source HU NLHE solver"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name = "Jason Wang" }
+]
+
+dependencies = [
+    "numpy>=1.26",
+    "tqdm>=4.66",
+    "matplotlib>=3.8",
+    "pydantic>=2.5",
+]
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
