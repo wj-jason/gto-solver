@@ -12,7 +12,13 @@ import time
 
 from solver.eval.eval_cpp import compare as compare_cpp
 from solver.eval.eval import compare as compare_py
-from solver.game.cards import RANKS, SUITS, canonical_hands, expand_to_combos, hand_by_label
+from solver.game.cards import (
+    RANKS,
+    SUITS,
+    canonical_hands,
+    expand_to_combos,
+    hand_by_label,
+)
 
 FULL_DECK = [r + s for r in RANKS for s in SUITS]
 
@@ -59,8 +65,10 @@ def main() -> None:
     args = parser.parse_args()
 
     villains = [h for h in canonical_hands() if h.label != args.hero]
-    print(f"{args.hero} vs full range ({len(villains)} hands), "
-          f"{args.n_samples} samples/hand, seed={args.seed}")
+    print(
+        f"{args.hero} vs full range ({len(villains)} hands), "
+        f"{args.n_samples} samples/hand, seed={args.seed}"
+    )
     print()
 
     total_mismatches = 0
@@ -83,7 +91,10 @@ def main() -> None:
         mismatches = sum(1 for a, b in zip(results_py, results_cpp) if a != b)
         total_mismatches += mismatches
         if mismatches:
-            print(f"  MISMATCH: {args.hero} vs {h.label} -- {mismatches}/{args.n_samples} trials disagree")
+            print(
+                f"  MISMATCH: {args.hero} vs {h.label} -- "
+                f"{mismatches}/{args.n_samples} trials disagree"
+            )
 
         equities_py[h.label] = equity_from_results(results_py)
         equities_cpp[h.label] = equity_from_results(results_cpp)
@@ -92,7 +103,9 @@ def main() -> None:
     print()
     print(f"total trials evaluated (each evaluator): {total_trials:,}")
     if total_mismatches > 0:
-        print(f"correctness: {total_mismatches} MISMATCHES FOUND -- evaluators disagree, investigate")
+        print(
+            f"correctness: {total_mismatches} MISMATCHES FOUND -- evaluators disagree, investigate"
+        )
     print()
     print(f"python evaluator total time: {py_total_time:.3f}s")
     print(f"c++    evaluator total time: {cpp_total_time:.3f}s")

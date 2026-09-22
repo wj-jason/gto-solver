@@ -9,7 +9,10 @@ TOLERANCE = 0.05  # +/- 5 percentage points, generous for MC noise at this sampl
 
 def _log(label: str, mc_equity: float, expected: float) -> None:
     diff = mc_equity - expected
-    print(f"{label:20s}  mc={mc_equity:.4f}  expected={expected:.4f}  " f"diff={diff:+.4f}")
+    print(
+        f"{label:20s}  mc={mc_equity:.4f}  expected={expected:.4f}  "
+        f"diff={diff:+.4f}"
+    )
 
 
 def test_equity_result_win_tie_loss_sum_to_one():

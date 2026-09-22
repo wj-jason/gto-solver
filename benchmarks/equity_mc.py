@@ -22,21 +22,26 @@ def main() -> None:
     args = parser.parse_args()
 
     villains = [h for h in canonical_hands() if h.label != args.hero]
-    print(f"{args.hero} vs full range ({len(villains)} hands), "
-          f"{args.n_samples} samples/hand, seed={args.seed}")
+    print(
+        f"{args.hero} vs full range ({len(villains)} hands), "
+        f"{args.n_samples} samples/hand, seed={args.seed}"
+    )
     print()
 
     py_total_time = 0.0
     cpp_total_time = 0.0
 
-
     for h in villains:
         t0 = time.perf_counter()
-        _ = hand_vs_hand_equity_py(args.hero, h.label, n_samples=args.n_samples, seed=args.seed)
+        _ = hand_vs_hand_equity_py(
+            args.hero, h.label, n_samples=args.n_samples, seed=args.seed
+        )
         py_total_time += time.perf_counter() - t0
 
         t0 = time.perf_counter()
-        _ = hand_vs_hand_equity_cpp(args.hero, h.label, n_samples=args.n_samples, seed=args.seed)
+        _ = hand_vs_hand_equity_cpp(
+            args.hero, h.label, n_samples=args.n_samples, seed=args.seed
+        )
         cpp_total_time += time.perf_counter() - t0
 
     total_trials = len(villains) * args.n_samples

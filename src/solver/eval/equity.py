@@ -66,7 +66,9 @@ def _resolve_hole(hole: HoleSpec) -> CanonicalHand | tuple[str, str]:
     return hole  # already a CanonicalHand
 
 
-def _sample_combo(spec: CanonicalHand | tuple[str, str], rng: random.Random) -> tuple[str, str]:
+def _sample_combo(
+    spec: CanonicalHand | tuple[str, str], rng: random.Random
+) -> tuple[str, str]:
     if isinstance(spec, tuple):
         return spec
     combos = expand_to_combos(spec)
@@ -146,7 +148,9 @@ def hand_vs_hand_equity(
 
 
 @lru_cache(maxsize=None)
-def _cached_equity(label_a: str, label_b: str, n_samples: int, seed: int) -> EquityResult:
+def _cached_equity(
+    label_a: str, label_b: str, n_samples: int, seed: int
+) -> EquityResult:
     return hand_vs_hand_equity(label_a, label_b, n_samples=n_samples, seed=seed)
 
 
@@ -194,7 +198,9 @@ def build_equity_table(
     return table
 
 
-def save_equity_table(table: dict[tuple[str, str], EquityResult], path: str | Path) -> None:
+def save_equity_table(
+    table: dict[tuple[str, str], EquityResult], path: str | Path
+) -> None:
     with open(path, "wb") as f:
         pickle.dump(table, f)
 

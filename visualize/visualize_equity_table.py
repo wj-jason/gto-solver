@@ -49,7 +49,9 @@ def avg_equity_vs_random(label: str, equity_table: dict, hands_by_label: dict) -
     return weighted_sum / total_weight
 
 
-def build_grid(equity_table: dict, hands_by_label: dict, vs_label: str | None) -> np.ndarray:
+def build_grid(
+    equity_table: dict, hands_by_label: dict, vs_label: str | None
+) -> np.ndarray:
     n = len(RANKS_DESC)
     grid = np.zeros((n, n))
     for i, row_rank in enumerate(RANKS_DESC):
@@ -126,7 +128,9 @@ def main() -> None:
         default=None,
         help="opponent hand label (e.g. AA, 72o). Omit for equity vs a random hand.",
     )
-    parser.add_argument("--n-samples", type=int, default=500, help="MC samples per hand pair")
+    parser.add_argument(
+        "--n-samples", type=int, default=500, help="MC samples per hand pair"
+    )
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument(
         "--cache-path",
@@ -139,10 +143,16 @@ def main() -> None:
     hands = canonical_hands()
     hands_by_label = {h.label: h for h in hands}
 
-    print(f"building/loading equity table (n_samples={args.n_samples}, cache={args.cache_path})...")
+    print(
+        f"building/loading equity table (n_samples={args.n_samples}, cache={args.cache_path})..."
+    )
     t0 = time.perf_counter()
     equity_table = build_or_load_equity_table(
-        args.cache_path, n_samples=args.n_samples, seed=args.seed, hands=hands, show_progress=True
+        args.cache_path,
+        n_samples=args.n_samples,
+        seed=args.seed,
+        hands=hands,
+        show_progress=True,
     )
     print(f"equity table ready in {time.perf_counter() - t0:.1f}s")
 

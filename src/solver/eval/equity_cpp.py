@@ -33,7 +33,9 @@ def _card_to_index(card: str) -> int:
 
 
 def _combos_as_indices(hand: CanonicalHand) -> list[tuple[int, int]]:
-    return [(_card_to_index(c1), _card_to_index(c2)) for c1, c2 in expand_to_combos(hand)]
+    return [
+        (_card_to_index(c1), _card_to_index(c2)) for c1, c2 in expand_to_combos(hand)
+    ]
 
 
 def hand_vs_hand_equity(
@@ -76,7 +78,9 @@ def equity_on_board(
     counts = _ext.simulate_equity(combos_a, combos_b, board_indices, n_samples, seed)
     n = counts.n_trials
     if n == 0:
-        raise RuntimeError(f"could not sample any valid matchups for {hand_a} vs {hand_b}")
+        raise RuntimeError(
+            f"could not sample any valid matchups for {hand_a} vs {hand_b}"
+        )
 
     return EquityResult(
         win=counts.wins / n, tie=counts.ties / n, loss=counts.losses / n, n_trials=n

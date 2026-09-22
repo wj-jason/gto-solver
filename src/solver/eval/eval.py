@@ -50,7 +50,9 @@ def score_5card(cards: list[str]) -> tuple:
     if straight_high is not None and is_flush:
         return (STRAIGHT_FLUSH, straight_high)
 
-    counts_desc = sorted(rank_counts.items(), key=lambda kv: (kv[1], kv[0]), reverse=True)
+    counts_desc = sorted(
+        rank_counts.items(), key=lambda kv: (kv[1], kv[0]), reverse=True
+    )
 
     if counts_desc[0][1] == 4:
         quad_rank = counts_desc[0][0]
