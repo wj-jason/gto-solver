@@ -4,6 +4,10 @@
 #include "solver/equity.hpp"
 #include "solver/eval.hpp"
 
+#ifdef POKER_SOLVER_HAS_CUDA
+#include "solver/equity_cuda.cuh"
+#endif
+
 namespace py = pybind11;
 
 // The module name here ("_poker_solver_cpp") is what Python imports --
@@ -39,4 +43,17 @@ PYBIND11_MODULE(_poker_solver_cpp, m) {
         "Full Monte Carlo equity simulation (sampling + evaluation), entirely "
         "in C++ -- one call per hand pair, not one per trial."
     );
+
+#ifdef POKER_SOLVER_HAS_CUDA
+    m.def(
+        "simulate_equity_cuda", &poker_solver::simulate_equity_cuda,
+        py::arg("combos_a"), py::arg("combos_b"), py::arg("board"),
+        py::arg("n_samples"), py::arg("seed"),
+        "Experimental single-hand-pair CUDA port of simulate_equity. Naive "
+        "correctness-first version: one thread per trial, one kernel "
+        "launch, global atomicAdd reduction, no shared-memory batching "
+        "across hand pairs yet. Only built when POKER_SOLVER_ENABLE_CUDA "
+        "is turned on at configure time."
+    );
+#endif
 }
