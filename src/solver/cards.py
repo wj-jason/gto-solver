@@ -11,13 +11,14 @@ SUITS = "shdc"
 @dataclass(frozen=True)
 class CanonicalHand:
     """
-    Collapse the state of specific suits (AcKd = AKo) 
+    Collapse the state of specific suits (AcKd = AKo)
     """
-    label: str              # e.g. "AKs", "AKo", "TT"
-    high: str               # higher rank, e.g. "A"
-    low: str                # lower (or equal) rank, e.g. "K"
-    suited: bool | None     # None for pairs, True/False otherwise
-    n_combos: int           # 6 for pairs, 4 for suited, 12 for offsuit
+
+    label: str  # e.g. "AKs", "AKo", "TT"
+    high: str  # higher rank, e.g. "A"
+    low: str  # lower (or equal) rank, e.g. "K"
+    suited: bool | None  # None for pairs, True/False otherwise
+    n_combos: int  # 6 for pairs, 4 for suited, 12 for offsuit
 
     def __str__(self) -> str:
         return self.label
@@ -31,16 +32,10 @@ def canonical_hands() -> list[CanonicalHand]:
                 continue  # only emit each unordered rank-pair once
             high, low = r1, r2
             if i == j:
-                hands.append(
-                    CanonicalHand(f"{high}{low}", high, low, None, 6)
-                )
+                hands.append(CanonicalHand(f"{high}{low}", high, low, None, 6))
             else:
-                hands.append(
-                    CanonicalHand(f"{high}{low}s", high, low, True, 4)
-                )
-                hands.append(
-                    CanonicalHand(f"{high}{low}o", high, low, False, 12)
-                )
+                hands.append(CanonicalHand(f"{high}{low}s", high, low, True, 4))
+                hands.append(CanonicalHand(f"{high}{low}o", high, low, False, 12))
     return hands
 
 
@@ -50,8 +45,7 @@ def total_combos(hands: list[CanonicalHand] | None = None) -> int:
 
 
 def expand_to_combos(hand: CanonicalHand) -> list[tuple[str, str]]:
-    """Expand a canonical hand into its actual (card, card) combinations.
-    """
+    """Expand a canonical hand into its actual (card, card) combinations."""
     combos: list[tuple[str, str]] = []
     if hand.suited is None:  # pair
         for s1, s2 in combinations(SUITS, 2):

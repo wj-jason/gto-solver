@@ -18,12 +18,13 @@ dependencies:
   - ruff>=0.4
   - mypy>=1.9
   - ipykernel>=6.29
+  - pre-commit>=3.7
 
   # C++ / CUDA build toolchain
   - cmake>=3.28
   - ninja
   - pybind11>=2.11
-  - cxx-compiler       
-  - cuda-toolkit=12.*  
+  - cxx-compiler
+  - cuda-toolkit=12.*
   - numba>=0.59
   - cupy>=13.0
