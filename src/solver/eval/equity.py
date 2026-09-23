@@ -9,7 +9,7 @@ from pathlib import Path
 from tqdm import tqdm
 
 from solver.eval.eval import compare
-from solver.eval.equity_cpp import hand_vs_hand_equity as hand_vs_hand_equity_cpp
+from solver.eval.equity_cuda import hand_vs_hand_equity_cuda
 from solver.game.cards import (
     RANKS,
     SUITS,
@@ -186,7 +186,7 @@ def build_equity_table(
     table: dict[tuple[str, str], EquityResult] = {}
     for i, ha in enumerate(hands):
         for hb in hands[i:]:
-            result = hand_vs_hand_equity_cpp(ha, hb, n_samples=n_samples, seed=seed)
+            result = hand_vs_hand_equity_cuda(ha, hb, n_samples=n_samples, seed=seed)
             table[(ha.label, hb.label)] = result
             table[(hb.label, ha.label)] = EquityResult(
                 win=result.loss, tie=result.tie, loss=result.win

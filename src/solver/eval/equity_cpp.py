@@ -38,7 +38,7 @@ def _combos_as_indices(hand: CanonicalHand) -> list[tuple[int, int]]:
     ]
 
 
-def hand_vs_hand_equity(
+def hand_vs_hand_equity_cpp(
     hand_a: CanonicalHand | str,
     hand_b: CanonicalHand | str,
     n_samples: int = 2000,
@@ -46,10 +46,10 @@ def hand_vs_hand_equity(
 ) -> EquityResult:
     """Preflop equity -- same signature/semantics as
     eval.equity.hand_vs_hand_equity, backed entirely by the C++ MC loop."""
-    return equity_on_board(hand_a, hand_b, board=[], n_samples=n_samples, seed=seed)
+    return equity_on_board_cpp(hand_a, hand_b, board=[], n_samples=n_samples, seed=seed)
 
 
-def equity_on_board(
+def equity_on_board_cpp(
     hand_a: CanonicalHand | str,
     hand_b: CanonicalHand | str,
     board: list[str] | None = None,

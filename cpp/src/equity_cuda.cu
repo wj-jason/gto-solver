@@ -11,12 +11,12 @@ namespace poker_solver {
 
 namespace {
 
-inline uint64_t card_bit(int card_index) { return 1ull << card_index; }
+__host__ __device__ inline uint64_t card_bit(int card_index) { return 1ull << card_index; }
 
 // Minimal starting point: bounded retries instead of the CPU version's
 // unbounded resample-while-conflicting loop. Keeps every thread's control
 // flow shaped the same way regardless of whether it eventually finds a
-// valid deal -- see equity_mc_cuda.cuh for why (warp divergence).
+// valid deal -- see equity_cuda.cuh for why (warp divergence).
 constexpr int kMaxAttemptsPerTrial = 8;
 constexpr int kThreadsPerBlock = 256;
 

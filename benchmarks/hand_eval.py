@@ -1,9 +1,3 @@
-"""
-Usage:
-    python benchmark_hand_evaluators.py                  # default: 500 samples/hand
-    python benchmark_hand_evaluators.py --n-samples 2000  # more accurate, slower
-"""
-
 from __future__ import annotations
 
 import argparse
