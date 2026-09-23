@@ -1,6 +1,6 @@
 # Benchmarks
 
-## Monte-Carlo Equity Evaluation (Python vs C++)
+## Monte-Carlo Equity Evaluation
 
 ```bash
 python benchmarks/equity_mc.py --n-samples=10000
