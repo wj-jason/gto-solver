@@ -1,6 +1,6 @@
 # Benchmarks
 
-## MC Hand Evaluation (Python vs C++)
+## Monte-Carlo Equity Evaluation (Python vs C++)
 
 ```bash
 python benchmarks/equity_mc.py --n-samples=10000
@@ -8,7 +8,8 @@ python benchmarks/equity_mc.py --n-samples=10000
 
 AA is evaluated against the full range of villains holdings. In total there are 1.68 million hands sampled in this process.
 
-| Language | Total Time  | Speedup (vs Python)|
+| Implementation | Total Time (s)  | Speedup (vs Python)|
 | -------- | -------- | -------- |
-| Row 1 A  | Row 1 B  | Row 1 C  |
-| Row 2 A  | Row 2 B  | Row 2 C  |
+| Python  | 240.954  | - |
+| C++ | 7.097  | 34.0x   |
+| CUDA | 1.680 | 143.4x |
