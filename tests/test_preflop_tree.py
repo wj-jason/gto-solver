@@ -74,5 +74,9 @@ def test_raise_count_is_capped():
 
     terminals = enumerate_all_terminal_histories(STACK_DEPTH)
     for t in terminals:
-        n_raise_actions = sum(1 for a in t.history if a in (Action.RAISE, Action.ALL_IN))
-        assert n_raise_actions <= MAX_RAISES + 1  # +1 allows a final all-in beyond the cap
+        n_raise_actions = sum(
+            1 for a in t.history if a in (Action.RAISE, Action.ALL_IN)
+        )
+        assert (
+            n_raise_actions <= MAX_RAISES + 1
+        )  # +1 allows a final all-in beyond the cap
